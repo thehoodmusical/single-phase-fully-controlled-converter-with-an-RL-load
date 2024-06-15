@@ -1,0 +1,55 @@
+用matlab语言编写S函数
+
+1.在matlab命令行窗口输入命令，打开模板文件
+edit sfuntemp1.m
+模板文件sfuntmpl.m包括：
+1个主函数
+6个子函数
+
+2.主函数
+function [sys,x0,str,ts] = fname(t,x,u,flag)
+fname是S函数的函数名。
+输入形参t,x,u,flag分别为仿真时间、状态向量、输入向量和子函数调用标志。在输入形参表中，还包括用户自定义参数表。
+输出形参sys代表一种返回参数：得到何种参数取决于flag的值。x0是初始状态值：如果系统中无状态变量，x0会得到一个空阵。对于M文件 S函数，str将被置成一个空阵；ts是一个两列矩阵，一列是各状态变量的采样周期，另一列是相应的采样时间的偏移量；对于连续系统，采样周期和偏移量都置成0.如果采样周期为-1，则将继承输入信号的采样周期
+
+3.子函数
+S函数共有6个子函数，这些子函数的前缀为mdl，由flag的值来控制在仿真的各阶段调用S函数的哪一个子函数。
+
+flag取0：调用初始化子函数mdlnitalizeSizes。
+flag取1：调用子函数mdlDerivatives实现无连续状态的更新
+flag取2：调用子函数mdlUpdate实现离散状态的更新
+Flag取3：调用输出子函数mdlOutputs
+flag取4和9较少使用。
+
+4.示例：采用S函数实现y=kx+b
+主函数：
+function [sys,x0,str,ts]=timekb(t,x,u,flag,k,b)
+switch flag
+    case 0
+        [sys,x0,str,ts]=mdlInitializeSizes; %初始化
+    case 3
+        sys=mdlOutputs(t,x,u,k,b);          %计算输出量
+    case {1,2,4,9}
+        sys=[];
+    otherwise                               %出错处理
+        error(num2str(flag))
+end
+
+子函数1：
+function [sys,x0,str,ts]=mdlInitializeSizes()
+sizes=simsizes;
+sizes.NumContStates=0;   %无连续状态
+sizes.NumDiscStates=0;    %无离散状态
+sizes.NumOutputs=1;            %有一个输出量
+sizes.NumInputs=1;         %有一个输入信号
+sizes.DirFeedthrough=1;   %输出量中含有输入量
+sizes.NumSampleTimes=1;   %单个采样周期
+sys=simsizes(sizes);
+%给其他返回参数赋值
+x0=[];                   %设置初始状态为零状态
+str=[];                    %将str变量设置为空字符串
+ts=[-1,0];                 %假定继承输入信号的采样周期
+
+子函数2：
+function sys=mdlOutputs(t,x,u,k,b)
+sys=k*u+b;

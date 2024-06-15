@@ -1,0 +1,77 @@
+%implements s6_b0_k5mgk_Terminate "C"
+
+%function Terminate(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcTerminateFcnOfS6B5 = OpaqueTLCBlockFcn("Terminate", 6, 5, 0, 5, 0)
+%assign tlcTerminateFcnOfS6B10 = OpaqueTLCBlockFcn("Terminate", 6, 10, 0, 5, 1)
+%assign tlcTerminateFcnOfS6B18 = OpaqueTLCBlockFcn("Terminate", 6, 18, 0, 5, 2)
+%assign tlcTerminateFcnOfS6B27 = OpaqueTLCBlockFcn("Terminate", 6, 27, 0, 5, 3)
+%assign tlcTerminateFcnOfS6B32 = OpaqueTLCBlockFcn("Terminate", 6, 32, 0, 5, 4)
+%assign tlcTerminateFcnOfS6B37 = OpaqueTLCBlockFcn("Terminate", 6, 37, 0, 5, 5)
+%assign tlcCleanupRuntimeResourcesFcnOfS6B5 = OpaqueTLCBlockFcn("CleanupRuntimeResources", 6, 5, 0, 5, 6)
+%assign tlcCleanupRuntimeResourcesFcnOfS6B10 = OpaqueTLCBlockFcn("CleanupRuntimeResources", 6, 10, 0, 5, 7)
+%assign tlcCleanupRuntimeResourcesFcnOfS6B18 = OpaqueTLCBlockFcn("CleanupRuntimeResources", 6, 18, 0, 5, 8)
+%assign tlcCleanupRuntimeResourcesFcnOfS6B27 = OpaqueTLCBlockFcn("CleanupRuntimeResources", 6, 27, 0, 5, 9)
+%assign tlcCleanupRuntimeResourcesFcnOfS6B32 = OpaqueTLCBlockFcn("CleanupRuntimeResources", 6, 32, 0, 5, 10)
+%assign tlcCleanupRuntimeResourcesFcnOfS6B37 = OpaqueTLCBlockFcn("CleanupRuntimeResources", 6, 37, 0, 5, 11)
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B5)
+/* Terminate for S-Function (contact_force): '<Root>/S-Function2' */
+%<tlcTerminateFcnOfS6B5>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B10)
+/* Terminate for S-Function (contact_force): '<Root>/S-Function5' */
+%<tlcTerminateFcnOfS6B10>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B18)
+/* Terminate for S-Function (contact_force): '<Root>/S-Function1' */
+%<tlcTerminateFcnOfS6B18>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B27)
+/* Terminate for S-Function (contact_force): '<Root>/S-Function3' */
+%<tlcTerminateFcnOfS6B27>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B32)
+/* Terminate for S-Function (contact_force): '<Root>/S-Function4' */
+%<tlcTerminateFcnOfS6B32>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B37)
+/* Terminate for S-Function (contact_force): '<Root>/S-Function8' */
+%<tlcTerminateFcnOfS6B37>\
+%endif
+%if !WHITE_SPACE(tlcCleanupRuntimeResourcesFcnOfS6B5)
+/* CleanupRuntimeResources for S-Function (contact_force): '<Root>/S-Function2' */
+%<tlcCleanupRuntimeResourcesFcnOfS6B5>\
+%endif
+%if !WHITE_SPACE(tlcCleanupRuntimeResourcesFcnOfS6B10)
+/* CleanupRuntimeResources for S-Function (contact_force): '<Root>/S-Function5' */
+%<tlcCleanupRuntimeResourcesFcnOfS6B10>\
+%endif
+%if !WHITE_SPACE(tlcCleanupRuntimeResourcesFcnOfS6B18)
+/* CleanupRuntimeResources for S-Function (contact_force): '<Root>/S-Function1' */
+%<tlcCleanupRuntimeResourcesFcnOfS6B18>\
+%endif
+%if !WHITE_SPACE(tlcCleanupRuntimeResourcesFcnOfS6B27)
+/* CleanupRuntimeResources for S-Function (contact_force): '<Root>/S-Function3' */
+%<tlcCleanupRuntimeResourcesFcnOfS6B27>\
+%endif
+%if !WHITE_SPACE(tlcCleanupRuntimeResourcesFcnOfS6B32)
+/* CleanupRuntimeResources for S-Function (contact_force): '<Root>/S-Function4' */
+%<tlcCleanupRuntimeResourcesFcnOfS6B32>\
+%endif
+%if !WHITE_SPACE(tlcCleanupRuntimeResourcesFcnOfS6B37)
+/* CleanupRuntimeResources for S-Function (contact_force): '<Root>/S-Function8' */
+%<tlcCleanupRuntimeResourcesFcnOfS6B37>\
+%endif
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function TerminateFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Terminate(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 5, fcnProtoType)>
+%endfunction

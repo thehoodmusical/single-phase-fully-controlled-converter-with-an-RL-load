@@ -1,0 +1,149 @@
+%implements s6_b0_k5mgk_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcSetupRuntimeResourcesFcnOfS6B5 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 5, 0, 1, 0)
+%assign tlcSetupRuntimeResourcesFcnOfS6B7 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 7, 0, 1, 1)
+%assign tlcSetupRuntimeResourcesFcnOfS6B8 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 8, 0, 1, 2)
+%assign tlcSetupRuntimeResourcesFcnOfS6B10 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 10, 0, 1, 3)
+%assign tlcSetupRuntimeResourcesFcnOfS6B11 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 11, 0, 1, 4)
+%assign tlcSetupRuntimeResourcesFcnOfS6B13 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 13, 0, 1, 5)
+%assign tlcSetupRuntimeResourcesFcnOfS6B18 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 18, 0, 1, 6)
+%assign tlcSetupRuntimeResourcesFcnOfS6B20 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 20, 0, 1, 7)
+%assign tlcSetupRuntimeResourcesFcnOfS6B21 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 21, 0, 1, 8)
+%assign tlcSetupRuntimeResourcesFcnOfS6B27 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 27, 0, 1, 9)
+%assign tlcSetupRuntimeResourcesFcnOfS6B29 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 29, 0, 1, 10)
+%assign tlcSetupRuntimeResourcesFcnOfS6B30 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 30, 0, 1, 11)
+%assign tlcSetupRuntimeResourcesFcnOfS6B32 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 32, 0, 1, 12)
+%assign tlcSetupRuntimeResourcesFcnOfS6B34 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 34, 0, 1, 13)
+%assign tlcSetupRuntimeResourcesFcnOfS6B35 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 35, 0, 1, 14)
+%assign tlcSetupRuntimeResourcesFcnOfS6B37 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 37, 0, 1, 15)
+%assign tlcSetupRuntimeResourcesFcnOfS6B38 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 38, 0, 1, 16)
+%assign tlcSetupRuntimeResourcesFcnOfS6B40 = OpaqueTLCBlockFcn("SetupRuntimeResources", 6, 40, 0, 1, 17)
+%assign tlcStartFcnOfS6B5 = OpaqueTLCBlockFcn("Start", 6, 5, 0, 1, 18)
+%assign tlcStartFcnOfS6B10 = OpaqueTLCBlockFcn("Start", 6, 10, 0, 1, 19)
+%assign tlcStartFcnOfS6B18 = OpaqueTLCBlockFcn("Start", 6, 18, 0, 1, 20)
+%assign tlcStartFcnOfS6B27 = OpaqueTLCBlockFcn("Start", 6, 27, 0, 1, 21)
+%assign tlcStartFcnOfS6B32 = OpaqueTLCBlockFcn("Start", 6, 32, 0, 1, 22)
+%assign tlcStartFcnOfS6B37 = OpaqueTLCBlockFcn("Start", 6, 37, 0, 1, 23)
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B5)
+/* SetupRuntimeResources for S-Function (contact_force): '<Root>/S-Function2' */
+%<tlcSetupRuntimeResourcesFcnOfS6B5>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B7)
+/* SetupRuntimeResources for Scope: '<Root>/Scope5' */
+%<tlcSetupRuntimeResourcesFcnOfS6B7>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B8)
+/* SetupRuntimeResources for Scope: '<Root>/Scope6' incorporates:
+ *  Constant: '<Root>/Constant7'
+ */
+%<tlcSetupRuntimeResourcesFcnOfS6B8>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B10)
+/* SetupRuntimeResources for S-Function (contact_force): '<Root>/S-Function5' */
+%<tlcSetupRuntimeResourcesFcnOfS6B10>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B11)
+/* SetupRuntimeResources for Scope: '<Root>/Scope10' incorporates:
+ *  Constant: '<Root>/Constant14'
+ */
+%<tlcSetupRuntimeResourcesFcnOfS6B11>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B13)
+/* SetupRuntimeResources for Scope: '<Root>/Scope9' */
+%<tlcSetupRuntimeResourcesFcnOfS6B13>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B18)
+/* SetupRuntimeResources for S-Function (contact_force): '<Root>/S-Function1' */
+%<tlcSetupRuntimeResourcesFcnOfS6B18>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B20)
+/* SetupRuntimeResources for Scope: '<Root>/Scope1' */
+%<tlcSetupRuntimeResourcesFcnOfS6B20>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B21)
+/* SetupRuntimeResources for Scope: '<Root>/Scope4' incorporates:
+ *  Constant: '<Root>/Constant1'
+ */
+%<tlcSetupRuntimeResourcesFcnOfS6B21>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B27)
+/* SetupRuntimeResources for S-Function (contact_force): '<Root>/S-Function3' */
+%<tlcSetupRuntimeResourcesFcnOfS6B27>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B29)
+/* SetupRuntimeResources for Scope: '<Root>/Scope2' */
+%<tlcSetupRuntimeResourcesFcnOfS6B29>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B30)
+/* SetupRuntimeResources for Scope: '<Root>/Scope3' incorporates:
+ *  Constant: '<Root>/Constant10'
+ */
+%<tlcSetupRuntimeResourcesFcnOfS6B30>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B32)
+/* SetupRuntimeResources for S-Function (contact_force): '<Root>/S-Function4' */
+%<tlcSetupRuntimeResourcesFcnOfS6B32>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B34)
+/* SetupRuntimeResources for Scope: '<Root>/Scope7' */
+%<tlcSetupRuntimeResourcesFcnOfS6B34>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B35)
+/* SetupRuntimeResources for Scope: '<Root>/Scope8' incorporates:
+ *  Constant: '<Root>/Constant13'
+ */
+%<tlcSetupRuntimeResourcesFcnOfS6B35>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B37)
+/* SetupRuntimeResources for S-Function (contact_force): '<Root>/S-Function8' */
+%<tlcSetupRuntimeResourcesFcnOfS6B37>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B38)
+/* SetupRuntimeResources for Scope: '<Root>/Scope11' incorporates:
+ *  Constant: '<Root>/Constant15'
+ */
+%<tlcSetupRuntimeResourcesFcnOfS6B38>\
+%endif
+%if !WHITE_SPACE(tlcSetupRuntimeResourcesFcnOfS6B40)
+/* SetupRuntimeResources for Scope: '<Root>/Scope12' */
+%<tlcSetupRuntimeResourcesFcnOfS6B40>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B5)
+/* Start for S-Function (contact_force): '<Root>/S-Function2' */
+%<tlcStartFcnOfS6B5>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B10)
+/* Start for S-Function (contact_force): '<Root>/S-Function5' */
+%<tlcStartFcnOfS6B10>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B18)
+/* Start for S-Function (contact_force): '<Root>/S-Function1' */
+%<tlcStartFcnOfS6B18>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B27)
+/* Start for S-Function (contact_force): '<Root>/S-Function3' */
+%<tlcStartFcnOfS6B27>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B32)
+/* Start for S-Function (contact_force): '<Root>/S-Function4' */
+%<tlcStartFcnOfS6B32>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B37)
+/* Start for S-Function (contact_force): '<Root>/S-Function8' */
+%<tlcStartFcnOfS6B37>\
+%endif
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function StartFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Start(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%endfunction

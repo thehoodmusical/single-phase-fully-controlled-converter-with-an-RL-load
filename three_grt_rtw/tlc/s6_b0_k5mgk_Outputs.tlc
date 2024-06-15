@@ -1,0 +1,504 @@
+%implements s6_b0_k5mgk_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+
+real_T Output_tmp;
+real_T SineWave2_tmp;
+real_T Xc;
+real_T db;
+real_T db_tmp;
+real_T fi;
+real_T *lastU;
+%closefile localVarDecl
+%assign tlcOutputsFcnOfS6B5 = OpaqueTLCBlockFcn("Outputs", 6, 5, 0, 3, 0)
+%assign tlcOutputsFcnOfS6B7 = OpaqueTLCBlockFcn("Outputs", 6, 7, 0, 3, 1)
+%assign tlcOutputsFcnOfS6B8 = OpaqueTLCBlockFcn("Outputs", 6, 8, 0, 3, 2)
+%assign tlcOutputsFcnOfS6B10 = OpaqueTLCBlockFcn("Outputs", 6, 10, 0, 3, 3)
+%assign tlcOutputsFcnOfS6B11 = OpaqueTLCBlockFcn("Outputs", 6, 11, 0, 3, 4)
+%assign tlcOutputsFcnOfS6B13 = OpaqueTLCBlockFcn("Outputs", 6, 13, 0, 3, 5)
+%assign tlcOutputsFcnOfS6B18 = OpaqueTLCBlockFcn("Outputs", 6, 18, 0, 3, 6)
+%assign tlcOutputsFcnOfS6B20 = OpaqueTLCBlockFcn("Outputs", 6, 20, 0, 3, 7)
+%assign tlcOutputsFcnOfS6B21 = OpaqueTLCBlockFcn("Outputs", 6, 21, 0, 3, 8)
+%assign tlcOutputsFcnOfS6B27 = OpaqueTLCBlockFcn("Outputs", 6, 27, 0, 3, 9)
+%assign tlcOutputsFcnOfS6B29 = OpaqueTLCBlockFcn("Outputs", 6, 29, 0, 3, 10)
+%assign tlcOutputsFcnOfS6B30 = OpaqueTLCBlockFcn("Outputs", 6, 30, 0, 3, 11)
+%assign tlcOutputsFcnOfS6B32 = OpaqueTLCBlockFcn("Outputs", 6, 32, 0, 3, 12)
+%assign tlcOutputsFcnOfS6B34 = OpaqueTLCBlockFcn("Outputs", 6, 34, 0, 3, 13)
+%assign tlcOutputsFcnOfS6B35 = OpaqueTLCBlockFcn("Outputs", 6, 35, 0, 3, 14)
+%assign tlcOutputsFcnOfS6B37 = OpaqueTLCBlockFcn("Outputs", 6, 37, 0, 3, 15)
+%assign tlcOutputsFcnOfS6B38 = OpaqueTLCBlockFcn("Outputs", 6, 38, 0, 3, 16)
+%assign tlcOutputsFcnOfS6B40 = OpaqueTLCBlockFcn("Outputs", 6, 40, 0, 3, 17)
+/* {S!d104}Clock: '<S8>/Clock' incorporates:
+ *  Clock: '<S7>/Clock'
+ *  Clock: '<S9>/Clock'
+ *  Derivative: '<Root>/Derivative1'
+ *  Derivative: '<Root>/Derivative17'
+ *  Derivative: '<Root>/Derivative18'
+ *  Derivative: '<Root>/Derivative2'
+ *  Derivative: '<Root>/Derivative3'
+ *  Derivative: '<Root>/Derivative4'
+ *  Derivative: '<Root>/Derivative5'
+ *  Derivative: '<Root>/Derivative6'
+ *  Derivative: '<Root>/Derivative7'
+ */
+Output_tmp = %<(SLibCG_SE(LibGetT()))>;
+/* {S!d106}Step: '<S8>/Step' incorporates:
+ *  Sin: '<Root>/Sine Wave2'
+ *  Step: '<S7>/Step'
+ *  Step: '<S9>/Step'
+ */
+SineWave2_tmp = %<(SLibCG_SE(LibGetTaskTime(0)))>;
+if (SineWave2_tmp < three_P.Ramp1_start) {
+    fi = three_P.Step_Y0;
+} else {
+    fi = three_P.Ramp1_slope;
+}
+/* {E!d106}End of Step: '<S8>/Step' */
+
+/* {S!d108}Sum: '<S8>/Output' incorporates:
+ *  Clock: '<S8>/Clock'
+ *  Constant: '<S8>/Constant'
+ *  Constant: '<S8>/Constant1'
+ *  Product: '<S8>/Product'
+ *  Sum: '<S8>/Sum'
+ */
+three_B.Output = (Output_tmp - three_P.Ramp1_start) * fi + three_P.Ramp1_InitialOutput;
+/* {S!d110}Delay: '<Root>/Delay1' */
+three_B.Delay1 = three_DW.Delay1_DSTATE;
+/* {S!d112}SignalConversion generated from: '<Root>/S-Function2' */
+three_B.TmpSignalConversionAtSFunction2[0] = three_B.Output;
+three_B.TmpSignalConversionAtSFunction2[1] = three_B.Delay1;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B5)
+/* {S!d114}S-Function (contact_force): '<Root>/S-Function2' */
+%<tlcOutputsFcnOfS6B5>\
+%endif
+/* {S!d116}Sum: '<Root>/Sum5' incorporates:
+ *  Constant: '<Root>/Constant7'
+ */
+three_B.Sum5 = three_B.SFunction2 - three_P.Constant7_Value;
+/* {S!d118}MATLAB Function: '<Root>/AIC' incorporates:
+ *  Constant: '<Root>/Constant4'
+ *  Constant: '<Root>/Constant5'
+ */
+fi = 0.0002 * three_DW.df_pre_h + three_DW.fi_pre_oq;
+db_tmp = three_P.Constant4_Value - three_DW.Xc_dot_pre_i2;
+db = fi * 50.0 / db_tmp;
+printf("%<"fi=\%f,db=\%f\\n">", fi, db);
+fflush(stdout);
+three_DW.fi_pre_oq = fi;
+three_DW.df_pre_h = three_B.Sum5;
+Xc = three_DW.Xc_dot_pre_i2 * 0.0005 + three_DW.Xc_pre_b;
+three_DW.Xc_dot_pre_i2 += ((((db + 50.0) * db_tmp + three_B.Sum5) + (three_B.Output - three_DW.Xc_pre_b) * 0.0) + three_P.Constant5_Value) * 0.0005;
+three_DW.Xc_pre_b = Xc;
+three_B.Xc_c = Xc;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B7)
+/* {S!d120}Scope: '<Root>/Scope5' */
+%<tlcOutputsFcnOfS6B7>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B8)
+/* {S!d122}Scope: '<Root>/Scope6' incorporates:
+ *  Constant: '<Root>/Constant7'
+ */
+%<tlcOutputsFcnOfS6B8>\
+%endif
+/* {S!d124}Sin: '<Root>/Sine Wave2' */
+three_B.SineWave2 = sin(three_P.SineWave2_Freq * SineWave2_tmp + three_P.SineWave2_Phase) * three_P.SineWave2_Amp + three_P.SineWave2_Bias;
+/* {S!d126}Delay: '<Root>/Delay4' */
+three_B.Delay4 = three_DW.Delay4_DSTATE;
+/* {S!d128}SignalConversion generated from: '<Root>/S-Function5' */
+three_B.TmpSignalConversionAtSFunction5[0] = three_B.SineWave2;
+three_B.TmpSignalConversionAtSFunction5[1] = three_B.Delay4;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B10)
+/* {S!d130}S-Function (contact_force): '<Root>/S-Function5' */
+%<tlcOutputsFcnOfS6B10>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B11)
+/* {S!d132}Scope: '<Root>/Scope10' incorporates:
+ *  Constant: '<Root>/Constant14'
+ */
+%<tlcOutputsFcnOfS6B11>\
+%endif
+/* {S!d138}Derivative: '<Root>/Derivative5' */
+if ((three_DW.TimeStampA >= Output_tmp) && (three_DW.TimeStampB >= Output_tmp)) {
+    /* {S!d134}Derivative: '<Root>/Derivative5' */
+    three_B.Derivative5 = 0.0;
+} else {
+    fi = three_DW.TimeStampA;
+    lastU = &three_DW.LastUAtTimeA;
+    if (three_DW.TimeStampA < three_DW.TimeStampB) {
+        if (three_DW.TimeStampB < Output_tmp) {
+            fi = three_DW.TimeStampB;
+            lastU = &three_DW.LastUAtTimeB;
+        }
+    } else {
+        if (three_DW.TimeStampA >= Output_tmp) {
+            fi = three_DW.TimeStampB;
+            lastU = &three_DW.LastUAtTimeB;
+        }
+    }
+    /* {S!d136}Derivative: '<Root>/Derivative5' */
+    three_B.Derivative5 = (three_B.SineWave2 - *lastU) / (Output_tmp - fi);
+}
+/* {S!d144}Derivative: '<Root>/Derivative18' */
+if ((three_DW.TimeStampA_o >= Output_tmp) && (three_DW.TimeStampB_p >= Output_tmp)) {
+    /* {S!d140}Derivative: '<Root>/Derivative18' */
+    three_B.Derivative18 = 0.0;
+} else {
+    fi = three_DW.TimeStampA_o;
+    lastU = &three_DW.LastUAtTimeA_d;
+    if (three_DW.TimeStampA_o < three_DW.TimeStampB_p) {
+        if (three_DW.TimeStampB_p < Output_tmp) {
+            fi = three_DW.TimeStampB_p;
+            lastU = &three_DW.LastUAtTimeB_n;
+        }
+    } else {
+        if (three_DW.TimeStampA_o >= Output_tmp) {
+            fi = three_DW.TimeStampB_p;
+            lastU = &three_DW.LastUAtTimeB_n;
+        }
+    }
+    /* {S!d142}Derivative: '<Root>/Derivative18' */
+    three_B.Derivative18 = (three_B.SineWave2 - *lastU) / (Output_tmp - fi);
+}
+/* {S!d146}Sum: '<Root>/Sum7' incorporates:
+ *  Constant: '<Root>/Constant14'
+ */
+three_B.Sum7 = three_B.SFunction5 - three_P.Constant14_Value;
+/* {S!d148}MATLAB Function: '<Root>/AIC1' */
+fi = 0.0002 * three_DW.df_pre_m + three_DW.fi_pre_o;
+three_DW.fi_pre_o = fi;
+three_DW.df_pre_m = three_B.Sum7;
+Xc = three_DW.Xc_dot_pre_b * 0.0005 + three_DW.Xc_pre_j;
+db_tmp = three_B.Derivative5 - three_DW.Xc_dot_pre_b;
+three_DW.Xc_dot_pre_b += ((((fi * 50.0 / db_tmp + 50.0) * db_tmp + three_B.Sum7) + (three_B.SineWave2 - three_DW.Xc_pre_j) * 0.0) + three_B.Derivative18) * 0.0005;
+three_DW.Xc_pre_j = Xc;
+three_B.Xc_h = Xc;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B13)
+/* {S!d150}Scope: '<Root>/Scope9' */
+%<tlcOutputsFcnOfS6B13>\
+%endif
+/* {S!d152}Step: '<S7>/Step' */
+if (SineWave2_tmp < three_P.Ramp_start) {
+    fi = three_P.Step_Y0_g;
+} else {
+    fi = three_P.Ramp_slope;
+}
+/* {S!d154}Sum: '<S7>/Output' incorporates:
+ *  Constant: '<S7>/Constant'
+ *  Constant: '<S7>/Constant1'
+ *  Product: '<S7>/Product'
+ *  Sum: '<S7>/Sum'
+ */
+three_B.Output_e = (Output_tmp - three_P.Ramp_start) * fi + three_P.Ramp_InitialOutput;
+/* {S!d160}Derivative: '<Root>/Derivative2' */
+if ((three_DW.TimeStampA_a >= Output_tmp) && (three_DW.TimeStampB_l >= Output_tmp)) {
+    /* {S!d156}Derivative: '<Root>/Derivative2' */
+    three_B.Derivative2 = 0.0;
+} else {
+    fi = three_DW.TimeStampA_a;
+    lastU = &three_DW.LastUAtTimeA_j;
+    if (three_DW.TimeStampA_a < three_DW.TimeStampB_l) {
+        if (three_DW.TimeStampB_l < Output_tmp) {
+            fi = three_DW.TimeStampB_l;
+            lastU = &three_DW.LastUAtTimeB_g;
+        }
+    } else {
+        if (three_DW.TimeStampA_a >= Output_tmp) {
+            fi = three_DW.TimeStampB_l;
+            lastU = &three_DW.LastUAtTimeB_g;
+        }
+    }
+    /* {S!d158}Derivative: '<Root>/Derivative2' */
+    three_B.Derivative2 = (three_B.Output_e - *lastU) / (Output_tmp - fi);
+}
+/* {S!d162}Delay: '<Root>/Delay' */
+three_B.Delay = three_DW.Delay_DSTATE;
+/* {S!d164}SignalConversion generated from: '<Root>/S-Function1' */
+three_B.TmpSignalConversionAtSFunction1[0] = three_B.Output_e;
+three_B.TmpSignalConversionAtSFunction1[1] = three_B.Delay;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B18)
+/* {S!d166}S-Function (contact_force): '<Root>/S-Function1' */
+%<tlcOutputsFcnOfS6B18>\
+%endif
+/* {S!d168}Sum: '<Root>/Sum4' incorporates:
+ *  Constant: '<Root>/Constant1'
+ */
+three_B.Sum4 = three_B.SFunction1 - three_P.Constant1_Value;
+/* {S!d170}MATLAB Function: '<Root>/IC' incorporates:
+ *  Constant: '<Root>/Constant3'
+ */
+Xc = three_DW.Xc_dot_pre_m * 5.0E-5 + three_DW.Xc_pre_i;
+three_DW.Xc_dot_pre_m += ((((three_B.Derivative2 - three_DW.Xc_dot_pre_m) * 50.0 + three_B.Sum4) + (three_B.Output_e - three_DW.Xc_pre_i) * 0.0) + three_P.Constant3_Value) * 5.0E-5;
+three_DW.Xc_pre_i = Xc;
+three_B.Xc_b = Xc;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B20)
+/* {S!d172}Scope: '<Root>/Scope1' */
+%<tlcOutputsFcnOfS6B20>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B21)
+/* {S!d174}Scope: '<Root>/Scope4' incorporates:
+ *  Constant: '<Root>/Constant1'
+ */
+%<tlcOutputsFcnOfS6B21>\
+%endif
+/* {S!d176}Step: '<S9>/Step' */
+if (SineWave2_tmp < three_P.Ramp2_start) {
+    fi = three_P.Step_Y0_n;
+} else {
+    fi = three_P.Ramp2_slope;
+}
+/* {S!d178}Sum: '<S9>/Output' incorporates:
+ *  Constant: '<S9>/Constant'
+ *  Constant: '<S9>/Constant1'
+ *  Product: '<S9>/Product'
+ *  Sum: '<S9>/Sum'
+ */
+three_B.Output_h = (Output_tmp - three_P.Ramp2_start) * fi + three_P.Ramp2_InitialOutput;
+/* {S!d180}Delay: '<Root>/Delay2' */
+three_B.Delay2 = three_DW.Delay2_DSTATE;
+/* {S!d182}SignalConversion generated from: '<Root>/S-Function3' */
+three_B.TmpSignalConversionAtSFunction3[0] = three_B.Output_h;
+three_B.TmpSignalConversionAtSFunction3[1] = three_B.Delay2;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B27)
+/* {S!d184}S-Function (contact_force): '<Root>/S-Function3' */
+%<tlcOutputsFcnOfS6B27>\
+%endif
+/* {S!d186}Sum: '<Root>/Sum1' incorporates:
+ *  Constant: '<Root>/Constant10'
+ */
+three_B.Sum1 = three_B.SFunction3 - three_P.Constant10_Value;
+/* {S!d192}Derivative: '<Root>/Derivative1' */
+if ((three_DW.TimeStampA_j >= Output_tmp) && (three_DW.TimeStampB_ly >= Output_tmp)) {
+    /* {S!d188}Derivative: '<Root>/Derivative1' */
+    three_B.Derivative1 = 0.0;
+} else {
+    fi = three_DW.TimeStampA_j;
+    lastU = &three_DW.LastUAtTimeA_h;
+    if (three_DW.TimeStampA_j < three_DW.TimeStampB_ly) {
+        if (three_DW.TimeStampB_ly < Output_tmp) {
+            fi = three_DW.TimeStampB_ly;
+            lastU = &three_DW.LastUAtTimeB_l;
+        }
+    } else {
+        if (three_DW.TimeStampA_j >= Output_tmp) {
+            fi = three_DW.TimeStampB_ly;
+            lastU = &three_DW.LastUAtTimeB_l;
+        }
+    }
+    /* {S!d190}Derivative: '<Root>/Derivative1' */
+    three_B.Derivative1 = (three_B.Sum1 - *lastU) / (Output_tmp - fi);
+}
+/* {S!d194}MATLAB Function: '<Root>/DAIC' incorporates:
+ *  Constant: '<Root>/Constant2'
+ *  Constant: '<Root>/Constant6'
+ */
+fi = 1.0 / ((%<(SLibCGCallSubFcn("rt_powd_snf", ["2.7183", "2.0 / fabs(three_B.Sum1)"], 0, 3, 0))> + %<(SLibCGCallSubFcn("rt_powd_snf", ["2.7183", "0.001 * fabs(three_B.Derivative1)"], 0, 3, 1))>) + 100.0) / 50.0 * three_DW.df_pre_f + three_DW.fi_pre_n;
+db_tmp = three_P.Constant2_Value - three_DW.Xc_dot_pre_i;
+db = fi * 50.0 / db_tmp;
+printf("%<"fi=\%f,db=\%f\\n">", fi, db);
+fflush(stdout);
+three_DW.fi_pre_n = fi;
+three_DW.df_pre_f = three_B.Sum1;
+Xc = three_DW.Xc_dot_pre_i * 0.0005 + three_DW.Xc_pre_a;
+three_DW.Xc_dot_pre_i += ((((db + 50.0) * db_tmp + three_B.Sum1) + (three_B.Output_h - three_DW.Xc_pre_a) * 0.0) + three_P.Constant6_Value) * 0.0005;
+three_DW.Xc_pre_a = Xc;
+three_B.Xc_a = Xc;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B29)
+/* {S!d196}Scope: '<Root>/Scope2' */
+%<tlcOutputsFcnOfS6B29>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B30)
+/* {S!d198}Scope: '<Root>/Scope3' incorporates:
+ *  Constant: '<Root>/Constant10'
+ */
+%<tlcOutputsFcnOfS6B30>\
+%endif
+/* {S!d200}Sin: '<Root>/Sine Wave1' */
+three_B.SineWave1 = sin(three_P.SineWave1_Freq * SineWave2_tmp + three_P.SineWave1_Phase) * three_P.SineWave1_Amp + three_P.SineWave1_Bias;
+/* {S!d206}Derivative: '<Root>/Derivative4' */
+if ((three_DW.TimeStampA_ou >= Output_tmp) && (three_DW.TimeStampB_g >= Output_tmp)) {
+    /* {S!d202}Derivative: '<Root>/Derivative4' */
+    three_B.Derivative4 = 0.0;
+} else {
+    fi = three_DW.TimeStampA_ou;
+    lastU = &three_DW.LastUAtTimeA_f;
+    if (three_DW.TimeStampA_ou < three_DW.TimeStampB_g) {
+        if (three_DW.TimeStampB_g < Output_tmp) {
+            fi = three_DW.TimeStampB_g;
+            lastU = &three_DW.LastUAtTimeB_f;
+        }
+    } else {
+        if (three_DW.TimeStampA_ou >= Output_tmp) {
+            fi = three_DW.TimeStampB_g;
+            lastU = &three_DW.LastUAtTimeB_f;
+        }
+    }
+    /* {S!d204}Derivative: '<Root>/Derivative4' */
+    three_B.Derivative4 = (three_B.SineWave1 - *lastU) / (Output_tmp - fi);
+}
+/* {S!d212}Derivative: '<Root>/Derivative17' */
+if ((three_DW.TimeStampA_n >= Output_tmp) && (three_DW.TimeStampB_c >= Output_tmp)) {
+    /* {S!d208}Derivative: '<Root>/Derivative17' */
+    three_B.Derivative17 = 0.0;
+} else {
+    fi = three_DW.TimeStampA_n;
+    lastU = &three_DW.LastUAtTimeA_e;
+    if (three_DW.TimeStampA_n < three_DW.TimeStampB_c) {
+        if (three_DW.TimeStampB_c < Output_tmp) {
+            fi = three_DW.TimeStampB_c;
+            lastU = &three_DW.LastUAtTimeB_f3;
+        }
+    } else {
+        if (three_DW.TimeStampA_n >= Output_tmp) {
+            fi = three_DW.TimeStampB_c;
+            lastU = &three_DW.LastUAtTimeB_f3;
+        }
+    }
+    /* {S!d210}Derivative: '<Root>/Derivative17' */
+    three_B.Derivative17 = (three_B.SineWave1 - *lastU) / (Output_tmp - fi);
+}
+/* {S!d214}Delay: '<Root>/Delay3' */
+three_B.Delay3 = three_DW.Delay3_DSTATE;
+/* {S!d216}SignalConversion generated from: '<Root>/S-Function4' */
+three_B.TmpSignalConversionAtSFunction4[0] = three_B.SineWave1;
+three_B.TmpSignalConversionAtSFunction4[1] = three_B.Delay3;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B32)
+/* {S!d218}S-Function (contact_force): '<Root>/S-Function4' */
+%<tlcOutputsFcnOfS6B32>\
+%endif
+/* {S!d220}Sum: '<Root>/Sum6' incorporates:
+ *  Constant: '<Root>/Constant13'
+ */
+three_B.Sum6 = three_B.SFunction4 - three_P.Constant13_Value;
+/* {S!d222}MATLAB Function: '<Root>/IC1' */
+Xc = three_DW.Xc_dot_pre * 5.0E-5 + three_DW.Xc_pre;
+three_DW.Xc_dot_pre += ((((three_B.Derivative4 - three_DW.Xc_dot_pre) * 50.0 + three_B.Sum6) + (three_B.SineWave1 - three_DW.Xc_pre) * 0.0) + three_B.Derivative17) * 5.0E-5;
+three_DW.Xc_pre = Xc;
+three_B.Xc = Xc;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B34)
+/* {S!d224}Scope: '<Root>/Scope7' */
+%<tlcOutputsFcnOfS6B34>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B35)
+/* {S!d226}Scope: '<Root>/Scope8' incorporates:
+ *  Constant: '<Root>/Constant13'
+ */
+%<tlcOutputsFcnOfS6B35>\
+%endif
+/* {S!d228}Sin: '<Root>/Sine Wave4' */
+three_B.SineWave4 = sin(three_P.SineWave4_Freq * SineWave2_tmp + three_P.SineWave4_Phase) * three_P.SineWave4_Amp + three_P.SineWave4_Bias;
+/* {S!d230}Delay: '<Root>/Delay7' */
+three_B.Delay7 = three_DW.Delay7_DSTATE;
+/* {S!d232}SignalConversion generated from: '<Root>/S-Function8' */
+three_B.TmpSignalConversionAtSFunction8[0] = three_B.SineWave4;
+three_B.TmpSignalConversionAtSFunction8[1] = three_B.Delay7;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B37)
+/* {S!d234}S-Function (contact_force): '<Root>/S-Function8' */
+%<tlcOutputsFcnOfS6B37>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B38)
+/* {S!d236}Scope: '<Root>/Scope11' incorporates:
+ *  Constant: '<Root>/Constant15'
+ */
+%<tlcOutputsFcnOfS6B38>\
+%endif
+/* {S!d242}Derivative: '<Root>/Derivative6' */
+if ((three_DW.TimeStampA_i >= Output_tmp) && (three_DW.TimeStampB_c3 >= Output_tmp)) {
+    /* {S!d238}Derivative: '<Root>/Derivative6' */
+    three_B.Derivative6 = 0.0;
+} else {
+    fi = three_DW.TimeStampA_i;
+    lastU = &three_DW.LastUAtTimeA_g;
+    if (three_DW.TimeStampA_i < three_DW.TimeStampB_c3) {
+        if (three_DW.TimeStampB_c3 < Output_tmp) {
+            fi = three_DW.TimeStampB_c3;
+            lastU = &three_DW.LastUAtTimeB_e;
+        }
+    } else {
+        if (three_DW.TimeStampA_i >= Output_tmp) {
+            fi = three_DW.TimeStampB_c3;
+            lastU = &three_DW.LastUAtTimeB_e;
+        }
+    }
+    /* {S!d240}Derivative: '<Root>/Derivative6' */
+    three_B.Derivative6 = (three_B.SineWave4 - *lastU) / (Output_tmp - fi);
+}
+/* {S!d248}Derivative: '<Root>/Derivative3' */
+if ((three_DW.TimeStampA_aa >= Output_tmp) && (three_DW.TimeStampB_f >= Output_tmp)) {
+    /* {S!d244}Derivative: '<Root>/Derivative3' */
+    three_B.Derivative3 = 0.0;
+} else {
+    fi = three_DW.TimeStampA_aa;
+    lastU = &three_DW.LastUAtTimeA_e1;
+    if (three_DW.TimeStampA_aa < three_DW.TimeStampB_f) {
+        if (three_DW.TimeStampB_f < Output_tmp) {
+            fi = three_DW.TimeStampB_f;
+            lastU = &three_DW.LastUAtTimeB_d;
+        }
+    } else {
+        if (three_DW.TimeStampA_aa >= Output_tmp) {
+            fi = three_DW.TimeStampB_f;
+            lastU = &three_DW.LastUAtTimeB_d;
+        }
+    }
+    /* {S!d246}Derivative: '<Root>/Derivative3' */
+    three_B.Derivative3 = (three_B.SineWave4 - *lastU) / (Output_tmp - fi);
+}
+/* {S!d250}Sum: '<Root>/Sum2' incorporates:
+ *  Constant: '<Root>/Constant15'
+ */
+three_B.Sum2 = three_B.SFunction8 - three_P.Constant15_Value;
+/* {S!d256}Derivative: '<Root>/Derivative7' */
+if ((three_DW.TimeStampA_l >= Output_tmp) && (three_DW.TimeStampB_j >= Output_tmp)) {
+    /* {S!d252}Derivative: '<Root>/Derivative7' */
+    three_B.Derivative7 = 0.0;
+} else {
+    fi = three_DW.TimeStampA_l;
+    lastU = &three_DW.LastUAtTimeA_es;
+    if (three_DW.TimeStampA_l < three_DW.TimeStampB_j) {
+        if (three_DW.TimeStampB_j < Output_tmp) {
+            fi = three_DW.TimeStampB_j;
+            lastU = &three_DW.LastUAtTimeB_m;
+        }
+    } else {
+        if (three_DW.TimeStampA_l >= Output_tmp) {
+            fi = three_DW.TimeStampB_j;
+            lastU = &three_DW.LastUAtTimeB_m;
+        }
+    }
+    /* {S!d254}Derivative: '<Root>/Derivative7' */
+    three_B.Derivative7 = (three_B.Sum2 - *lastU) / (Output_tmp - fi);
+}
+/* {S!d258}MATLAB Function: '<Root>/DAIC1' */
+fi = 1.0 / ((%<(SLibCGCallSubFcn("rt_powd_snf", ["2.7183", "2.0 / fabs(three_B.Sum2)"], 0, 3, 2))> + %<(SLibCGCallSubFcn("rt_powd_snf", ["2.7183", "0.001 * fabs(three_B.Derivative7)"], 0, 3, 3))>) + 100.0) / 50.0 * three_DW.df_pre + three_DW.fi_pre;
+db_tmp = three_B.Derivative6 - three_DW.Xc_dot_pre_j;
+db = fi * 50.0 / db_tmp;
+printf("%<"fi=\%f,db=\%f\\n">", fi, db);
+fflush(stdout);
+three_DW.fi_pre = fi;
+three_DW.df_pre = three_B.Sum2;
+Xc = three_DW.Xc_dot_pre_j * 0.0005 + three_DW.Xc_pre_k;
+three_DW.Xc_dot_pre_j += ((((db + 50.0) * db_tmp + three_B.Sum2) + (three_B.SineWave4 - three_DW.Xc_pre_k) * 0.0) + three_B.Derivative3) * 0.0005;
+three_DW.Xc_pre_k = Xc;
+three_B.Xc_n = Xc;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B40)
+/* {S!d260}Scope: '<Root>/Scope12' */
+%<tlcOutputsFcnOfS6B40>\
+%endif
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 3, fcnProtoType)>
+%endfunction

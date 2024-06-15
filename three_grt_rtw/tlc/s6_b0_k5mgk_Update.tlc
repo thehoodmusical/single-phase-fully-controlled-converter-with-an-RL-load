@@ -1,0 +1,216 @@
+%implements s6_b0_k5mgk_Update "C"
+
+%function Update(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+
+real_T *lastU;
+%closefile localVarDecl
+%assign tlcUpdateFcnOfS6B5 = OpaqueTLCBlockFcn("Update", 6, 5, 0, 4, 0)
+%assign tlcUpdateFcnOfS6B10 = OpaqueTLCBlockFcn("Update", 6, 10, 0, 4, 1)
+%assign tlcUpdateFcnOfS6B18 = OpaqueTLCBlockFcn("Update", 6, 18, 0, 4, 2)
+%assign tlcUpdateFcnOfS6B27 = OpaqueTLCBlockFcn("Update", 6, 27, 0, 4, 3)
+%assign tlcUpdateFcnOfS6B32 = OpaqueTLCBlockFcn("Update", 6, 32, 0, 4, 4)
+%assign tlcUpdateFcnOfS6B37 = OpaqueTLCBlockFcn("Update", 6, 37, 0, 4, 5)
+/* {S!d262}Update for Delay: '<Root>/Delay1' */
+three_DW.Delay1_DSTATE = three_B.Xc_c;
+%if !WHITE_SPACE(tlcUpdateFcnOfS6B5)
+/* {S!d264}Update for S-Function (contact_force): '<Root>/S-Function2' */
+%<tlcUpdateFcnOfS6B5>\
+%endif
+/* {S!d266}Update for Delay: '<Root>/Delay4' */
+three_DW.Delay4_DSTATE = three_B.Xc_h;
+%if !WHITE_SPACE(tlcUpdateFcnOfS6B10)
+/* {S!d268}Update for S-Function (contact_force): '<Root>/S-Function5' */
+%<tlcUpdateFcnOfS6B10>\
+%endif
+/* {S!d270}Update for Derivative: '<Root>/Derivative5' */
+if (three_DW.TimeStampA == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA;
+} else if (three_DW.TimeStampB == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB;
+} else if (three_DW.TimeStampA < three_DW.TimeStampB) {
+    three_DW.TimeStampA = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA;
+} else {
+    three_DW.TimeStampB = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB;
+}
+*lastU = three_B.SineWave2;
+/* {E!d270}End of Update for Derivative: '<Root>/Derivative5' */
+
+/* {S!d272}Update for Derivative: '<Root>/Derivative18' */
+if (three_DW.TimeStampA_o == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA_o = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_d;
+} else if (three_DW.TimeStampB_p == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB_p = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_n;
+} else if (three_DW.TimeStampA_o < three_DW.TimeStampB_p) {
+    three_DW.TimeStampA_o = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_d;
+} else {
+    three_DW.TimeStampB_p = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_n;
+}
+*lastU = three_B.SineWave2;
+/* {E!d272}End of Update for Derivative: '<Root>/Derivative18' */
+
+/* {S!d274}Update for Derivative: '<Root>/Derivative2' */
+if (three_DW.TimeStampA_a == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA_a = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_j;
+} else if (three_DW.TimeStampB_l == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB_l = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_g;
+} else if (three_DW.TimeStampA_a < three_DW.TimeStampB_l) {
+    three_DW.TimeStampA_a = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_j;
+} else {
+    three_DW.TimeStampB_l = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_g;
+}
+*lastU = three_B.Output_e;
+/* {E!d274}End of Update for Derivative: '<Root>/Derivative2' */
+
+/* {S!d276}Update for Delay: '<Root>/Delay' */
+three_DW.Delay_DSTATE = three_B.Xc_b;
+%if !WHITE_SPACE(tlcUpdateFcnOfS6B18)
+/* {S!d278}Update for S-Function (contact_force): '<Root>/S-Function1' */
+%<tlcUpdateFcnOfS6B18>\
+%endif
+/* {S!d280}Update for Delay: '<Root>/Delay2' */
+three_DW.Delay2_DSTATE = three_B.Xc_a;
+%if !WHITE_SPACE(tlcUpdateFcnOfS6B27)
+/* {S!d282}Update for S-Function (contact_force): '<Root>/S-Function3' */
+%<tlcUpdateFcnOfS6B27>\
+%endif
+/* {S!d284}Update for Derivative: '<Root>/Derivative1' */
+if (three_DW.TimeStampA_j == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA_j = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_h;
+} else if (three_DW.TimeStampB_ly == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB_ly = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_l;
+} else if (three_DW.TimeStampA_j < three_DW.TimeStampB_ly) {
+    three_DW.TimeStampA_j = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_h;
+} else {
+    three_DW.TimeStampB_ly = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_l;
+}
+*lastU = three_B.Sum1;
+/* {E!d284}End of Update for Derivative: '<Root>/Derivative1' */
+
+/* {S!d286}Update for Derivative: '<Root>/Derivative4' */
+if (three_DW.TimeStampA_ou == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA_ou = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_f;
+} else if (three_DW.TimeStampB_g == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB_g = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_f;
+} else if (three_DW.TimeStampA_ou < three_DW.TimeStampB_g) {
+    three_DW.TimeStampA_ou = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_f;
+} else {
+    three_DW.TimeStampB_g = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_f;
+}
+*lastU = three_B.SineWave1;
+/* {E!d286}End of Update for Derivative: '<Root>/Derivative4' */
+
+/* {S!d288}Update for Derivative: '<Root>/Derivative17' */
+if (three_DW.TimeStampA_n == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA_n = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_e;
+} else if (three_DW.TimeStampB_c == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB_c = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_f3;
+} else if (three_DW.TimeStampA_n < three_DW.TimeStampB_c) {
+    three_DW.TimeStampA_n = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_e;
+} else {
+    three_DW.TimeStampB_c = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_f3;
+}
+*lastU = three_B.SineWave1;
+/* {E!d288}End of Update for Derivative: '<Root>/Derivative17' */
+
+/* {S!d290}Update for Delay: '<Root>/Delay3' */
+three_DW.Delay3_DSTATE = three_B.Xc;
+%if !WHITE_SPACE(tlcUpdateFcnOfS6B32)
+/* {S!d292}Update for S-Function (contact_force): '<Root>/S-Function4' */
+%<tlcUpdateFcnOfS6B32>\
+%endif
+/* {S!d294}Update for Delay: '<Root>/Delay7' */
+three_DW.Delay7_DSTATE = three_B.Xc_n;
+%if !WHITE_SPACE(tlcUpdateFcnOfS6B37)
+/* {S!d296}Update for S-Function (contact_force): '<Root>/S-Function8' */
+%<tlcUpdateFcnOfS6B37>\
+%endif
+/* {S!d298}Update for Derivative: '<Root>/Derivative6' */
+if (three_DW.TimeStampA_i == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA_i = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_g;
+} else if (three_DW.TimeStampB_c3 == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB_c3 = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_e;
+} else if (three_DW.TimeStampA_i < three_DW.TimeStampB_c3) {
+    three_DW.TimeStampA_i = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_g;
+} else {
+    three_DW.TimeStampB_c3 = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_e;
+}
+*lastU = three_B.SineWave4;
+/* {E!d298}End of Update for Derivative: '<Root>/Derivative6' */
+
+/* {S!d300}Update for Derivative: '<Root>/Derivative3' */
+if (three_DW.TimeStampA_aa == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA_aa = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_e1;
+} else if (three_DW.TimeStampB_f == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB_f = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_d;
+} else if (three_DW.TimeStampA_aa < three_DW.TimeStampB_f) {
+    three_DW.TimeStampA_aa = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_e1;
+} else {
+    three_DW.TimeStampB_f = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_d;
+}
+*lastU = three_B.SineWave4;
+/* {E!d300}End of Update for Derivative: '<Root>/Derivative3' */
+
+/* {S!d302}Update for Derivative: '<Root>/Derivative7' */
+if (three_DW.TimeStampA_l == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampA_l = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_es;
+} else if (three_DW.TimeStampB_j == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    three_DW.TimeStampB_j = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_m;
+} else if (three_DW.TimeStampA_l < three_DW.TimeStampB_j) {
+    three_DW.TimeStampA_l = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeA_es;
+} else {
+    three_DW.TimeStampB_j = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &three_DW.LastUAtTimeB_m;
+}
+*lastU = three_B.Sum2;
+/* {E!d302}End of Update for Derivative: '<Root>/Derivative7' */
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedUpdateLocalVars", localVarDecl)>
+%endfunction
+%function UpdateFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Update(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 4, fcnProtoType)>
+%endfunction
